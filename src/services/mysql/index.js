@@ -18,11 +18,15 @@ const moduleModule = require('./modules')({ connection, errorHandler })
 const userHasModuleModule = require('./usersHasModules')({ connection, errorHandler })
 const history = require('./history')({ connection, errorHandler })
 const auth = require('./auth')({ connection, errorHandler })
+const pneus = require('./pneus')({ connection, errorHandler })
+const vehicles = require('./vehicles')({ connection, errorHandler })
 
 module.exports = {
   users: () => userModule,
   modules: () => moduleModule,
   usersHasModules: () => userHasModuleModule,
   history: () => history,
-  auth: () => auth
+  auth: () => auth,
+  pneus: () => pneus,
+  vehicles: () => vehicles
 }
