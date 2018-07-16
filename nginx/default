@@ -1,0 +1,25 @@
+server {
+  listen 80 default_server;
+  listen [::]:80 default_server;
+  server_name v2alarmexyz123.xyz www.v2alarmexyz123.xyz;
+  return 301 https://$host$request_uri;
+}
+
+server {
+  listen 443 ssl;
+  server_name v2alarmexyz123.xyz www.v2alarmexyz123.xyz;
+  ssl_certificate /etc/letsencrypt/live/v2alarmexyz123.xyz/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/v2alarmexyz123.xyz/privkey.pem;
+
+  # Passes those connections to Node running on 127.0.0.1 on port 8080
+  location / {
+    try_files $uri $uri/ =404;
+
+    proxy_pass http://localhost:5000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
+}

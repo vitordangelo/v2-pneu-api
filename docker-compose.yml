@@ -1,0 +1,32 @@
+version: '3.1'
+
+services:
+
+  v2-pneu-api:
+    image: ambientum/mysql:5.7
+    container_name: v2-pneu-api
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=v2-pneu-api
+      - MYSQL_PASSWORD=v2-pneu-api
+      - MYSQL_DATABASE=v2-pneu-api
+      - MYSQL_USER=v2-pneu-api
+    restart: always
+      
+  # node-alarm-module-prod:
+  #   build:
+  #     dockerfile: ./Dockerfile
+  #     context: .
+  #   image: v2-pneu-api/api
+  #   container_name: node-alarm-module
+  #   command: ["pm2-runtime", "src/index.js"]
+  #   working_dir: /home/node/
+  #   ports:
+  #     - 5000:3000
+  #   links:
+  #     - v2-pneu-api
+  #   restart: always
+
