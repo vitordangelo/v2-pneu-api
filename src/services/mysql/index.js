@@ -10,7 +10,7 @@ const connection = mysqlServer.createConnection({
 
 const errorHandler = (error, msg, rejectFunction) => {
   console.error(error)
-  rejectFunction({ error: msg })
+  rejectFunction(422, { error: msg })
 }
 
 const userModule = require('./users')({ connection, errorHandler })

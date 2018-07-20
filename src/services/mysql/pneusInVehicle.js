@@ -68,6 +68,10 @@ const pneusInVehicle = (deps) => {
             errorHandler(error, 'Falha ao listar pneus neste veículos', reject)
             return false
           }
+          if (results.length === 0) {
+            resolve(404, {status: 404, error: 'Pneu não encontrado'})
+            return
+          }
           resolve(results[0])
         })
       })
