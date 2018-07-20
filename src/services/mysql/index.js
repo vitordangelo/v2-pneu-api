@@ -14,19 +14,15 @@ const errorHandler = (error, msg, rejectFunction) => {
 }
 
 const userModule = require('./users')({ connection, errorHandler })
-const moduleModule = require('./modules')({ connection, errorHandler })
-const userHasModuleModule = require('./usersHasModules')({ connection, errorHandler })
-const history = require('./history')({ connection, errorHandler })
 const auth = require('./auth')({ connection, errorHandler })
 const pneus = require('./pneus')({ connection, errorHandler })
 const vehicles = require('./vehicles')({ connection, errorHandler })
+const pneusInVehicle = require('./pneusInVehicle')({ connection, errorHandler })
 
 module.exports = {
   users: () => userModule,
-  modules: () => moduleModule,
-  usersHasModules: () => userHasModuleModule,
-  history: () => history,
   auth: () => auth,
   pneus: () => pneus,
-  vehicles: () => vehicles
+  vehicles: () => vehicles,
+  pneusInVehicle: () => pneusInVehicle
 }
