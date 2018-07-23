@@ -12,5 +12,7 @@ CREATE TABLE IF NOT EXISTS `pneus_in_vehicles` (
   `sedundoDireitoInterno` varchar(255) NOT NULL DEFAULT '0',
   `segundoDireitoExterno` varchar(255) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `fk_vehicle` (`vehicle_id`),
+  CONSTRAINT `fk_vehicle` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicles` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;

@@ -18,11 +18,13 @@ const auth = require('./auth')({ connection, errorHandler })
 const pneus = require('./pneus')({ connection, errorHandler })
 const vehicles = require('./vehicles')({ connection, errorHandler })
 const pneusInVehicle = require('./pneusInVehicle')({ connection, errorHandler })
+const historyPneus = require('./history_pneus')({ connection, errorHandler })
 
 module.exports = {
   users: () => userModule,
   auth: () => auth,
   pneus: () => pneus,
   vehicles: () => vehicles,
-  pneusInVehicle: () => pneusInVehicle
+  pneusInVehicle: () => pneusInVehicle,
+  historyPneus: () => historyPneus
 }

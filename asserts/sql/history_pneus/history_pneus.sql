@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS `history_pneus` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `pneu_id` INT(10) unsigned NOT NULL DEFAULT '0',
+  `vehicle_id` INT(10) unsigned NOT NULL DEFAULT '0',
+  `position` VARCHAR(255) NOT NULL DEFAULT '0',
+  `km_distance` VARCHAR(255) NOT NULL DEFAULT '0',
+  `recapagem` VARCHAR(255) NOT NULL DEFAULT '0',
+  `odometerInstalled` VARCHAR(255) NOT NULL DEFAULT '0',
+  `dateInstalled` date DEFAULT NULL,
+  `odometerUninstalled` VARCHAR(255) NOT NULL DEFAULT '0',
+  `dateUninstalled` date DEFAULT NULL,
+  `note` VARCHAR(255) NOT NULL DEFAULT '0',
+  `obs` VARCHAR(255) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_pneu` (`pneu_id`),
+  KEY `fk_vehicles` (`vehicle_id`),
+  CONSTRAINT `fk_pneu` FOREIGN KEY (`pneu_id`) REFERENCES `pneus` (`id`),
+  CONSTRAINT `fk_vehicles` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicles` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
