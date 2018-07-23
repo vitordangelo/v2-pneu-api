@@ -6,16 +6,20 @@ const historyPneus = (deps) => {
 
         const query = `
           INSERT INTO
-          historyPneuss
-          (dimension, brand, pr, type, number, registry, new, recachutado)
-          VALUES (?, ? , ?, ?, ?, ?, ?, ?)`
+          history_pneus
+          (pneu_id, vehicle_id, position, km_distance, 
+            recapagem, odometerInstalled, dateInstalled, 
+            odometerUninstalled, dateUninstalled, note, obs)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
 
-        connection.query(query, [historyPneus.dimension, historyPneus.brand, historyPneus.pr, historyPneus.type,
-          historyPneus.number, historyPneus.registry,
-          historyPneus.new, historyPneus.recachutado], (error, results) => {
+        connection.query(query, [historyPneus.pneu_id, historyPneus.vehicle_id,
+          historyPneus.position, historyPneus.km_distance, historyPneus.recapagem,
+          historyPneus.odometerInstalled, historyPneus.dateInstalled,
+          historyPneus.odometerUninstalled, historyPneus.dateUninstalled,
+          historyPneus.note, historyPneus.obs], (error, results) => {
           if (error) {
             console.log(error)
-            errorHandler(error, `Falha ao cadastrar historyPneus`, reject)
+            errorHandler(error, `Falha ao cadastrar histórico deste pneu`, reject)
             return false
           }
           resolve({ status: 200, id: results.insertId })
@@ -29,12 +33,14 @@ const historyPneus = (deps) => {
 
         const query = `
           SELECT 
-          id, dimension, brand, pr, type, number, registry, new, recachutado 
-          FROM historyPneuss`
+          pneu_id, vehicle_id, position, km_distance, 
+          recapagem, odometerInstalled, dateInstalled, 
+          odometerUninstalled, dateUninstalled, note, obs 
+          FROM history_pneus`
 
         connection.query(query, (error, results) => {
           if (error) {
-            errorHandler(error, 'Falha ao listar historyPneuss', reject)
+            errorHandler(error, 'Falha ao listar histórico de pneu', reject)
             return false
           }
           resolve({status: 200, historyPneuss: results})
@@ -48,13 +54,19 @@ const historyPneus = (deps) => {
 
         const query = `
           SELECT 
-          id, dimension, brand, pr, type, number, registry, new, recachutado 
-          FROM historyPneuss WHERE id = ?`
+          pneu_id, vehicle_id, position, km_distance, 
+          recapagem, odometerInstalled, dateInstalled, 
+          odometerUninstalled, dateUninstalled, note, obs 
+          FROM history_pneus WHERE id = ?`
 
         connection.query(query, id, (error, results) => {
           if (error) {
-            errorHandler(error, 'Falha ao listar historyPneus', reject)
+            errorHandler(error, 'Falha ao listar listar histórico de pneu', reject)
             return false
+          }
+          if (results.length === 0) {
+            resolve(404, {status: 404, error: 'Pneu não encontrado'})
+            return
           }
           resolve(results[0])
         })
@@ -66,14 +78,14 @@ const historyPneus = (deps) => {
         const { connection, errorHandler } = deps
 
         const query = `
-          DELETE FROM historyPneuss WHERE id = ?`
+          DELETE FROM history_pneus WHERE id = ?`
 
         connection.query(query, [id], (error, results) => {
           if (error || !results.affectedRows) {
-            errorHandler(error, `Falha ao remover o historyPneus de id ${id}`, reject)
+            errorHandler(error, `Falha ao remover o histórico de pneu ${id}`, reject)
             return false
           }
-          resolve({ message: 'Pneu removido com sucesso!', affectedRows: results.affectedRows })
+          resolve({ message: 'Histórico de pneu removido com sucesso!', affectedRows: results.affectedRows })
         })
       })
     },
@@ -83,19 +95,25 @@ const historyPneus = (deps) => {
         const { connection, errorHandler } = deps
 
         const query = `
-          UPDATE historyPneuss SET 
-          dimension = ?, brand = ?, pr = ?, type = ?, number = ?, registry = ?, new = ?, recachutado = ?
+          UPDATE history_pneus SET 
+          pneu_id = ?, vehicle_id = ?, position = ?, km_distance = ?, 
+          recapagem = ?, odometerInstalled = ?, dateInstalled = ?, 
+          odometerUninstalled = ?, dateUninstalled = ?, note = ?, obs = ?
           WHERE id = ?`
 
-        connection.query(query, [historyPneus.dimension, historyPneus.brand, historyPneus.pr, historyPneus.type, historyPneus.number, historyPneus.registry, historyPneus.new, historyPneus.recachutado, id], (error, results) => {
+        connection.query(query, [historyPneus.pneu_id, historyPneus.vehicle_id,
+          historyPneus.position, historyPneus.km_distance, historyPneus.recapagem,
+          historyPneus.odometerInstalled, historyPneus.dateInstalled,
+          historyPneus.odometerUninstalled, historyPneus.dateUninstalled,
+          historyPneus.note, historyPneus.obs, id], (error, results) => {
           if (error) {
-            errorHandler(error, `Falha ao atualizar historyPneus`, reject)
+            errorHandler(error, `Falha ao atualizar histórico`, reject)
             return false
           }
           if (results.affectedRows === 0) {
-            resolve({ status: 'ID não encontrado' })
+            resolve(404, { status: 'ID não encontrado' })
           }
-          resolve({ message: 'Pneu atualizado com sucesso!' })
+          resolve({ message: 'Histórico atualizado com sucesso!' })
         })
       })
     }

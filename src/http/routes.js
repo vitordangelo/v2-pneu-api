@@ -2,6 +2,7 @@ const users = require('./modules/users')
 const pneus = require('./modules/pneus')
 const vehicles = require('./modules/vehicles')
 const pneusInVehicles = require('./modules/pneusInVehicle')
+const historyPneus = require('./modules/history_pneus')
 
 const db = require('../services/mysql')
 
@@ -10,6 +11,7 @@ const routes = (server) => {
   pneus(server)
   vehicles(server)
   pneusInVehicles(server)
+  historyPneus(server)
 
   server.get('/', (req, res, next) => {
     res.send('Enjoy the silence!')
