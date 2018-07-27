@@ -115,12 +115,13 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `plate` varchar(255) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table v2-pneu-api.vehicles: ~1 rows (approximately)
+-- Dumping data for table v2-pneu-api.vehicles: ~2 rows (approximately)
 /*!40000 ALTER TABLE `vehicles` DISABLE KEYS */;
 INSERT INTO `vehicles` (`id`, `number_car`, `brand`, `type`, `year`, `plate`, `created_at`) VALUES
-	(2, '', '', '', '', '', '2018-07-27 14:30:47');
+	(3, '1010', 'Volvo', 'Turismo', '1993', 'BMX5896', '2018-07-27 16:55:03'),
+	(4, '88', 'VW', 'Turismo', '2003', 'ABC123', '2018-07-27 17:03:45');
 /*!40000 ALTER TABLE `vehicles` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
