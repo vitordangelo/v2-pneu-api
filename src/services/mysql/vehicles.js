@@ -7,10 +7,11 @@ const vehicle = (deps) => {
         const query = `
           INSERT INTO
           vehicles
-          (number_car)
-          VALUES (?)`
+          (number_car, brand, type, year, plate)
+          VALUES (?, ?, ?, ?, ?)`
 
-        connection.query(query, [vehicle.number_car], (error, results) => {
+        connection.query(query, [vehicle.number_car, vehicle.brand, vehicle.type,
+          vehicle.year, vehicle.plate], (error, results) => {
           if (error) {
             console.log(error)
             errorHandler(error, `Falha ao cadastrar veículo`, reject)
@@ -27,7 +28,7 @@ const vehicle = (deps) => {
 
         const query = `
           SELECT 
-          id, number_car 
+          id, number_car, brand, type, year, plate 
           FROM vehicles`
 
         connection.query(query, (error, results) => {
@@ -46,7 +47,7 @@ const vehicle = (deps) => {
 
         const query = `
           SELECT 
-          id, number_car 
+          id, number_car, brand, type, year, plate 
           FROM vehicles WHERE id = ?`
 
         connection.query(query, id, (error, results) => {
@@ -80,9 +81,10 @@ const vehicle = (deps) => {
       return new Promise((resolve, reject) => {
         const { connection, errorHandler } = deps
 
-        const query = `UPDATE vehicles SET number_car = ? WHERE id = ?`
+        const query = `UPDATE vehicles SET number_car = ?, brand = ?, type = ?, year = ?, plate = ? WHERE id = ?`
 
-        connection.query(query, [vehicle.number_car, id], (error, results) => {
+        connection.query(query, [vehicle.number_car, vehicle.brand, vehicle.type,
+          vehicle.year, vehicle.plate, id], (error, results) => {
           if (error) {
             errorHandler(error, `Falha ao atualizar veículo`, reject)
             return false
