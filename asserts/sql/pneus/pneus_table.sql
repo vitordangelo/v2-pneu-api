@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS `pneus` (
   `registry` varchar(255) NOT NULL DEFAULT '0',
   `new` tinyint(2) unsigned NOT NULL DEFAULT '0',
   `recachutado` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `is_installed` tinyint(2) unsigned NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );

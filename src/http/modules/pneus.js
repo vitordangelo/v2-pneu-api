@@ -49,6 +49,17 @@ const routes = (server) => {
     }
     next()
   })
+
+  server.put(v1 + 'pneu/install-uninstall/:id', async (req, res, next) => {
+    const pneu = req.body
+    const id = req.params.id
+    try {
+      res.send(await db.pneus().istallUninstall(id, pneu))
+    } catch (error) {
+      res.send(422, error)
+    }
+    next()
+  })
 }
 
 module.exports = routes

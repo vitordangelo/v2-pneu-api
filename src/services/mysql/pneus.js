@@ -29,7 +29,7 @@ const pneu = (deps) => {
 
         const query = `
           SELECT 
-          id, dimension, brand, pr, type, number, registry, new, recachutado 
+          id, dimension, brand, pr, type, number, registry, new, recachutado, is_installed 
           FROM pneus`
 
         connection.query(query, (error, results) => {
@@ -48,7 +48,7 @@ const pneu = (deps) => {
 
         const query = `
           SELECT 
-          id, dimension, brand, pr, type, number, registry, new, recachutado 
+          id, dimension, brand, pr, type, number, registry, new, recachutado, is_installed 
           FROM pneus WHERE id = ?`
 
         connection.query(query, id, (error, results) => {
@@ -88,6 +88,28 @@ const pneu = (deps) => {
           WHERE id = ?`
 
         connection.query(query, [pneu.dimension, pneu.brand, pneu.pr, pneu.type, pneu.number, pneu.registry, pneu.new, pneu.recachutado, id], (error, results) => {
+          if (error) {
+            errorHandler(error, `Falha ao atualizar pneu`, reject)
+            return false
+          }
+          if (results.affectedRows === 0) {
+            resolve({ status: 'ID não encontrado' })
+          }
+          resolve({ message: 'Pneu atualizado com sucesso!' })
+        })
+      })
+    },
+
+    istallUninstall: (id, pneu) => {
+      return new Promise((resolve, reject) => {
+        const { connection, errorHandler } = deps
+
+        const query = `
+          UPDATE pneus SET 
+          is_installed = ?
+          WHERE id = ?`
+
+        connection.query(query, [pneu.is_installed, id], (error, results) => {
           if (error) {
             errorHandler(error, `Falha ao atualizar pneu`, reject)
             return false
