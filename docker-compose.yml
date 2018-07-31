@@ -1,15 +1,28 @@
 version: '2'
 
+# services:
+#   v2pneudb:
+#     image: mysql
+#     container_name: v2pneudb
+#     volumes:
+#       - ./mysql:/var/lib/mysql
+#     ports:
+#       - "3380:3306"
+#     environment:
+#       - MYSQL_ROOT_PASSWORD=v2pneu
+#       - MYSQL_PASSWORD=v2pneu
+#       - MYSQL_DATABASE=v2pneu
+#       - MYSQL_USER=v2pneu
+
 services:
-  v2pneudb:
-    image: mysql
-    container_name: v2pneudb
-    volumes:
-      - ./mysql:/var/lib/mysql
+  v2pneu-api:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    image: vitor/v2pneu
+    container_name: v2pneu-api
+    command: ["pm2-runtime", "src/index.js"]
+    working_dir: /home/node/
     ports:
-      - "3380:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=v2pneu
-      - MYSQL_PASSWORD=v2pneu
-      - MYSQL_DATABASE=v2pneu
-      - MYSQL_USER=v2pneu
+      - 5000:3000
+    restart: always
