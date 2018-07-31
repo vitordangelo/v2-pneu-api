@@ -10,7 +10,7 @@ const connection = mysqlServer.createConnection({
 
 const errorHandler = (error, msg, rejectFunction) => {
   console.error(error)
-  rejectFunction(422, { error: msg })
+  rejectFunction({ error: msg })
 }
 
 const userModule = require('./users')({ connection, errorHandler })
@@ -19,6 +19,7 @@ const pneus = require('./pneus')({ connection, errorHandler })
 const vehicles = require('./vehicles')({ connection, errorHandler })
 const pneusInVehicle = require('./pneusInVehicle')({ connection, errorHandler })
 const historyPneus = require('./history_pneus')({ connection, errorHandler })
+const pneusInstaled = require('./pneus_instaled')({ connection, errorHandler })
 
 module.exports = {
   users: () => userModule,
@@ -26,5 +27,6 @@ module.exports = {
   pneus: () => pneus,
   vehicles: () => vehicles,
   pneusInVehicle: () => pneusInVehicle,
-  historyPneus: () => historyPneus
+  historyPneus: () => historyPneus,
+  pneusInstaled: () => pneusInstaled
 }

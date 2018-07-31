@@ -137,3 +137,13 @@ CREATE TABLE IF NOT EXISTS 'users' (
   PRIMARY KEY ('id'),
   UNIQUE KEY 'email' ('email')
 ) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
+
+
+
+
+
+
+
+SELECT * 
+FROM pneus_instaled
+JOIN vehicles ON pneus_instaled.vehicle_id = vehicles.id 
